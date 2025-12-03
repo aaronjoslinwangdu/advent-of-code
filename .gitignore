@@ -1,0 +1,26 @@
+# The directory Mix will write compiled artifacts to.
+2025/aoc2025/_build/
+
+# If you run "mix test --cover", coverage assets end up here.
+2025/aoc2025/cover/
+
+# The directory Mix downloads your dependencies sources to.
+2025/aoc2025/deps/
+
+# Where third-party dependencies like ExDoc output generated docs.
+2025/aoc2025/doc/
+
+# Temporary files, for example, from tests.
+2025/aoc2025/tmp/
+
+# If the VM crashes, it generates a dump, let's ignore it too.
+2025/aoc2025/erl_crash.dump
+
+# Also ignore archive artifacts (built via "mix archive.build").
+2025/aoc2025/*.ez
+
+# Ignore package tarball (built via "mix hex.build").
+2025/aoc2025/aoc2025-*.tar
+
+# Ignore input text files
+2025/aoc2025/lib/inputs/*.txt
