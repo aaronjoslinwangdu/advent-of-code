@@ -1,6 +1,6 @@
-# Aoc2025
+# Advent of Code 2025
 
-**TODO: Add description**
+If you aren't familiar with `Mix` project structure, solutions can be found in `/lib/solutions/`.
 
 ## Installation
 
