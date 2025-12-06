@@ -11,6 +11,9 @@ defmodule Solutions.Day05 do
       end)
       |> Enum.sort()
       |> Enum.reduce([], &merge_intervals/2)
+
+    intervals_tup =
+      intervals
       |> Enum.reduce([], fn {left, right}, acc ->
         case acc do
           [] -> [left | [right]]
@@ -26,11 +29,12 @@ defmodule Solutions.Day05 do
       end)
       |> Stream.map(&String.to_integer/1)
       |> Stream.map(fn target ->
-        binary_search(0, tuple_size(intervals) - 1, intervals, target)
+        binary_search(0, tuple_size(intervals_tup) - 1, intervals_tup, target)
       end)
       |> Enum.reduce(0, fn insert_idx, cur_fresh_ingredients ->
         # since intervals will be of the form [start1, end1, start2, end2], inserting at an 
-        # even index means in between a end-start range, which is not fresh
+        # even index means the ingredient id would fall between the previous end and new start,
+        # therefore making it non-fresh
         if Integer.mod(insert_idx, 2) == 1 do
           cur_fresh_ingredients + 1
         else
@@ -38,7 +42,13 @@ defmodule Solutions.Day05 do
         end
       end)
 
-    [part1: fresh_ingredients, part2: :ok]
+    total_fresh_ingredients =
+      intervals
+      |> Enum.reduce(0, fn {left, right}, cur_fresh_ingredients ->
+        cur_fresh_ingredients + (right - left + 1)
+      end)
+
+    [part1: fresh_ingredients, part2: total_fresh_ingredients]
   end
 
   defp merge_intervals({left, right}, []), do: [{left, right}]
