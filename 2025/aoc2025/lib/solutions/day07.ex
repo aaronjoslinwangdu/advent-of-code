@@ -27,29 +27,29 @@ defmodule Solutions.Day07 do
   # accumulates the paths for the columns to the left + right in the previous row
   defp calculate_row_paths_and_splits(char, col, row_paths, prev_row_paths, splits)
        when char == "^" do
-    prev_row_val = Map.get(prev_row_paths, col)
+    case Map.get(prev_row_paths, col) do
+      nil ->
+        {row_paths, splits}
 
-    if prev_row_val != nil do
-      row_left = Map.get(row_paths, col - 1, 0)
-      left_inc = Map.put(row_paths, col - 1, row_left + prev_row_val)
-      left_and_right_inc = Map.put(left_inc, col + 1, prev_row_val)
+      prev_row_val ->
+        row_left = Map.get(row_paths, col - 1, 0)
+        left_inc = Map.put(row_paths, col - 1, row_left + prev_row_val)
+        left_and_right_inc = Map.put(left_inc, col + 1, prev_row_val)
 
-      {left_and_right_inc, splits + 1}
-    else
-      {row_paths, splits}
+        {left_and_right_inc, splits + 1}
     end
   end
 
   # accumulates the paths for the column directly above in the previous row
   defp calculate_row_paths_and_splits(char, col, row_paths, prev_row_paths, splits)
        when char == "." do
-    prev_row_val = Map.get(prev_row_paths, col)
+    case Map.get(prev_row_paths, col) do
+      nil ->
+        {row_paths, splits}
 
-    if prev_row_val != nil do
-      cur_row_val = Map.get(row_paths, col, 0)
-      {Map.put(row_paths, col, cur_row_val + prev_row_val), splits}
-    else
-      {row_paths, splits}
+      prev_row_val ->
+        cur_row_val = Map.get(row_paths, col, 0)
+        {Map.put(row_paths, col, cur_row_val + prev_row_val), splits}
     end
   end
 end
